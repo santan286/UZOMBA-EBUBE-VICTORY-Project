@@ -1,5 +1,6 @@
+
 import { useState } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Button } from 'react-native'
 
 type Roadmap = {
   title: string
@@ -68,8 +69,19 @@ export default function Index() {
 
   return (
     <ScrollView style={styles.container}>
+      <Text style={styles.owner}>UZOMBA EBUBE VICTORY</Text>
+      <Text style={styles.dayCounter}>Day 2 of 50 - 50 Day Project</Text>
+
       <Text style={styles.header}>Cybersec Roadmap 2026</Text>
       <Text style={styles.sub}>Tap a path to expand</Text>
+
+      <View style={styles.dayButton}>
+        <Button
+          title="Mark Day 2 Complete"
+          onPress={() => console.log('Day 2 commit: Roadmap updated')}
+          color="#00ff88"
+        />
+      </View>
 
       <View style={styles.tabRow}>
         {roadmaps.map((roadmap, idx) => (
@@ -107,7 +119,7 @@ export default function Index() {
         </View>
       </View>
 
-      <Text style={styles.footer}>From laptop server: you got this 💪</Text>
+      <Text style={styles.footer}>Commit #2 - From laptop server: you got this 💪</Text>
     </ScrollView>
   )
 }
@@ -118,17 +130,36 @@ const styles = StyleSheet.create({
     backgroundColor: '#0a0a0a',
     padding: 20,
   },
+  owner: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 40,
+
+textAlign: 'center',
+  },
+  dayCounter: {
+    fontSize: 16,
+    color: '#007AFF',
+    textAlign: 'center',
+    marginBottom: 20,
+    fontWeight: '600',
+  },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#00ff88',
-    marginTop: 40,
     marginBottom: 4,
   },
   sub: {
     fontSize: 14,
     color: '#888',
     marginBottom: 20,
+  },
+  dayButton: {
+    marginBottom: 20,
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   tabRow: {
     flexDirection: 'row',
@@ -145,7 +176,7 @@ const styles = StyleSheet.create({
     borderColor: '#333',
   },
   tabActive: {
-backgroundColor: '#00ff88',
+    backgroundColor: '#00ff88',
     borderColor: '#00ff88',
   },
   tabEmoji: {
