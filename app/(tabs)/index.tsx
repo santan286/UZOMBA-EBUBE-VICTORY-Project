@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 type Roadmap = {
   title: string
@@ -68,24 +68,18 @@ export default function Index() {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.owner}>UZOMBA EBUBE VICTORY</Text>
+      {/* HEADER SECTION (HTB Style) */}
+      <View style={styles.headerBox}>
+        <Text style={styles.owner}>UZOMBA EBUBE VICTORY</Text>
+        <Text style={styles.dayCounter}>PROJECT PHASE: DAY 02</Text>
+      </View>
       
-      {/* ADDED ELEMENT FOR ASSIGNMENT REQUIREMENT */}
-      <View style={styles.statusBadge}>
-        <Text style={styles.statusText}>Assignment Status: Home Page Updated ✅</Text>
+      {/* THM STYLE STATUS NOTIFICATION */}
+      <View style={styles.statusBanner}>
+        <Text style={styles.statusText}>● SYSTEM STATUS: ONLINE / UPDATED</Text>
       </View>
 
-      <Text style={styles.dayCounter}>Day 2 of 50 - 50 Day Project</Text>
-      <Text style={styles.header}>Cybersec Roadmap 2026</Text>
-      <Text style={styles.sub}>Tap a path to expand</Text>
-
-      <View style={styles.dayButton}>
-        <Button 
-            title="Mark Day 2 Complete" 
-            onPress={() => console.log('Day 2 commit: Roadmap updated')} 
-            color="#52796F" 
-        />
-      </View>
+      <Text style={styles.mainTitle}>Cybersecurity Roadmap</Text>
 
       <View style={styles.tabRow}>
         {roadmaps.map((roadmap, idx) => (
@@ -94,7 +88,6 @@ export default function Index() {
             style={[styles.tab, active === idx && styles.tabActive]}
             onPress={() => setActive(idx)}
           >
-            <Text style={styles.tabEmoji}>{roadmap.emoji}</Text>
             <Text style={[styles.tabText, active === idx && styles.tabTextActive]}>
               {roadmap.title}
             </Text>
@@ -102,28 +95,43 @@ export default function Index() {
         ))}
       </View>
 
+      {/* CONTENT CARD (Clean THM Lab Style) */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>{roadmaps[active].emoji} {roadmaps[active].title}</Text>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTitle}>{roadmaps[active].emoji} PATHWAY: {roadmaps[active].title.toUpperCase()}</Text>
+        </View>
         
-        <Text style={styles.sectionTitle}>Steps:</Text>
-        {roadmaps[active].steps.map((step, i) => (
-          <View key={i} style={styles.row}>
-            <Text style={styles.bullet}>{i + 1}.</Text>
-            <Text style={styles.stepText}>{step}</Text>
-          </View>
-        ))}
-
-        <Text style={styles.sectionTitle}>Key Certs:</Text>
-        <div style={styles.certWrap as any}>
-          {roadmaps[active].certs.map((cert, i) => (
-            <View key={i} style={styles.certBadge}>
-              <Text style={styles.certText}>{cert}</Text>
+        <View style={styles.contentBody}>
+          <Text style={styles.sectionLabel}>Learning Path:</Text>
+          {roadmaps[active].steps.map((step, i) => (
+            <View key={i} style={styles.stepRow}>
+              <View style={styles.stepNumberBox}><Text style={styles.stepNumber}>{i + 1}</Text></View>
+              <Text style={styles.stepText}>{step}</Text>
             </View>
           ))}
-        </div>
+
+          <View style={styles.divider} />
+
+          <Text style={styles.sectionLabel}>Target Certifications:</Text>
+          <View style={styles.certWrap}>
+            {roadmaps[active].certs.map((cert, i) => (
+              <View key={i} style={styles.certBadge}>
+                <Text style={styles.certText}>{cert}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
       </View>
 
-      <Text style={styles.footer}>Commit #2 - Eco Edition: you got this 💪</Text>
+      <View style={styles.actionArea}>
+        <Button 
+            title="DEPLOY UPDATES" 
+            onPress={() => console.log('Commit #3: Professional UI Push')} 
+            color="#9fef00" 
+        />
+      </View>
+
+      <Text style={styles.footer}>build_version: 2.0.1 | connection: encrypted</Text>
     </ScrollView>
   )
 }
@@ -131,53 +139,47 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F9F7', // Soft Off-White
+    backgroundColor: '#0f1219',
     padding: 20,
   },
-  owner: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#2D4739', // Forest Green
+  headerBox: {
     marginTop: 40,
-    textAlign: 'center',
+    borderLeftWidth: 3,
+    borderLeftColor: '#9fef00',
+    paddingLeft: 15,
   },
-  statusBadge: {
-    backgroundColor: '#E8EDE8',
-    padding: 8,
-    borderRadius: 20,
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: '#84A98C',
-    alignSelf: 'center',
-  },
-  statusText: {
-    color: '#52796F',
-    fontSize: 12,
-    fontWeight: '600',
+  owner: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#ffffff',
+    letterSpacing: 1,
   },
   dayCounter: {
-    fontSize: 14,
-    color: '#6B8E23', // Olive
-    textAlign: 'center',
-    marginBottom: 20,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-  },
-  header: {
-    fontSize: 28,
+    fontSize: 12,
+    color: '#9fef00',
     fontWeight: 'bold',
-    color: '#2D4739',
-    marginBottom: 4,
+    marginTop: 4,
   },
-  sub: {
-    fontSize: 14,
-    color: '#52796F',
-    marginBottom: 20,
+  statusBanner: {
+    backgroundColor: '#1a1f29',
+    padding: 8,
+    borderRadius: 4,
+    marginVertical: 15,
+    borderWidth: 1,
+    borderColor: '#2d3545',
   },
-  dayButton: {
+  statusText: {
+    color: '#5c6b89',
+    fontSize: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    letterSpacing: 2,
+  },
+  mainTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#ffffff',
     marginBottom: 20,
-    borderRadius: 8,
-    overflow: 'hidden',
   },
   tabRow: {
     flexDirection: 'row',
@@ -186,99 +188,113 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tab: {
-    backgroundColor: '#E8EDE8',
-    paddingHorizontal: 12,
+    backgroundColor: '#1a1f29',
+    paddingHorizontal: 15,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#C2CDC2',
+    borderColor: '#2d3545',
   },
   tabActive: {
-    backgroundColor: '#84A98C', // Moss Green
-    borderColor: '#52796F',
-  },
-  tabEmoji: {
-    fontSize: 16,
-    textAlign: 'center',
+    borderColor: '#9fef00',
+    backgroundColor: '#1a1f29',
   },
   tabText: {
-    color: '#52796F',
-    fontSize: 12,
-    marginTop: 2,
-    textAlign: 'center',
+    color: '#5c6b89',
+    fontSize: 11,
+    fontWeight: 'bold',
   },
   tabTextActive: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    color: '#9fef00',
   },
   card: {
-    backgroundColor: '#FFFFFF', // Clean White Card
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: '#161b22',
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 3,
+    borderColor: '#30363d',
+    overflow: 'hidden',
+  },
+  cardHeader: {
+    backgroundColor: '#1f242d',
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#30363d',
   },
   cardTitle: {
-    fontSize: 22,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: '#2D4739',
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#52796F',
-    marginTop: 12,
-    marginBottom: 10,
-    textTransform: 'uppercase',
+    color: '#ffffff',
     letterSpacing: 1,
   },
-  row: {
-    flexDirection: 'row',
-    marginBottom: 10,
-    alignItems: 'flex-start',
+  contentBody: {
+    padding: 20,
   },
-  bullet: {
-    color: '#84A98C',
-    marginRight: 10,
+  sectionLabel: {
+    fontSize: 11,
+    color: '#5c6b89',
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textTransform: 'uppercase',
+  },
+  stepRow: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    alignItems: 'center',
+  },
+  stepNumberBox: {
+    width: 24,
+    height: 24,
+    backgroundColor: '#2d3545',
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  stepNumber: {
+    color: '#9fef00',
+    fontSize: 10,
     fontWeight: 'bold',
   },
   stepText: {
-    color: '#4A4A4A',
+    color: '#c9d1d9',
+    fontSize: 13,
     flex: 1,
-    lineHeight: 22,
-    fontSize: 14,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#30363d',
+    marginVertical: 20,
   },
   certWrap: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-    marginTop: 5,
   },
   certBadge: {
-    backgroundColor: '#F0F4F0',
-    paddingHorizontal: 10,
+    backgroundColor: '#0d1117',
+    paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 6,
+    borderRadius: 4,
     borderWidth: 1,
-    borderColor: '#84A98C',
+    borderColor: '#30363d',
   },
   certText: {
-    color: '#2D4739',
-    fontSize: 11,
-    fontWeight: '700',
+    color: '#9fef00',
+    fontSize: 10,
+    fontWeight: 'bold',
+  },
+  actionArea: {
+    marginTop: 30,
+    borderRadius: 4,
+    overflow: 'hidden',
   },
   footer: {
-    color: '#A0A0A0',
+    color: '#30363d',
     textAlign: 'center',
     marginTop: 40,
     marginBottom: 40,
-    fontSize: 12,
-    fontStyle: 'italic',
+    fontSize: 10,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
   },
 })
